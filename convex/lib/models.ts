@@ -50,7 +50,7 @@ export const MODELS_SHARED: SharedModel[] = [
         id: "deepseek-r1",
         name: "DeepSeek R1",
         shortName: "R1",
-        adapters: ["openrouter:deepseek/deepseek-r1:free"],
+        adapters: ["openrouter:deepseek/deepseek-r1-0528:free"],
         abilities: ["reasoning", "function_calling"],
         customIcon: "deepseek"
     },
