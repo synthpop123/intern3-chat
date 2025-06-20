@@ -26,7 +26,7 @@ function ChatLayout() {
                     <div
                         className="flex min-h-svh flex-col"
                         style={{
-                            backgroundImage: "url(https://t3.chat/images/noise.png)",
+                            backgroundImage: "url(https://img.lkwplus.com/noise.webp)",
                             backgroundRepeat: "repeat",
                             backgroundSize: "auto"
                         }}

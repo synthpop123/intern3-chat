@@ -41,7 +41,7 @@ export const MODELS_SHARED: SharedModel[] = [
     {
         id: "deepseek-v3",
         name: "DeepSeek V3",
-        shortName: "V3",
+        shortName: "DS V3",
         adapters: ["openrouter:deepseek/deepseek-chat-v3-0324:free"],
         abilities: ["function_calling"],
         customIcon: "deepseek"
@@ -49,7 +49,7 @@ export const MODELS_SHARED: SharedModel[] = [
     {
         id: "deepseek-r1",
         name: "DeepSeek R1",
-        shortName: "R1",
+        shortName: "DS R1",
         adapters: ["openrouter:deepseek/deepseek-r1-0528:free"],
         abilities: ["reasoning", "function_calling"],
         customIcon: "deepseek"
@@ -140,7 +140,7 @@ export const MODELS_SHARED: SharedModel[] = [
         id: "gemini-2.0-flash-image-generation",
         name: "Gemini 2.0 Flash Imagen",
         shortName: "2.0 Flash Imagen",
-        adapters: ["i3-google:gemini-2.0-flash-preview", "google:gemini-2.0-flash-preview"],
+        adapters: ["i3-google:gemini-2.0-flash-exp", "google:gemini-2.0-flash-exp"],
         abilities: ["vision"]
     },
     {
