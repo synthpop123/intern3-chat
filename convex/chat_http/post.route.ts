@@ -431,7 +431,14 @@ export const chatPOST = httpAction(async (ctx, req) => {
 
             if (nameGenerationPromise) {
                 const res = await nameGenerationPromise
-                if (res instanceof ChatError) res.toResponse()
+                if (res instanceof ChatError) {
+                    console.error(
+                        "[cvx][chat][titleGeneration] title generation failed:",
+                        res.message
+                    )
+                } else {
+                    console.log("[cvx][chat][titleGeneration] title generation success:", res)
+                }
             }
 
             await ctx

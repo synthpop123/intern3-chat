@@ -11,6 +11,8 @@ import { api, internal } from "./_generated/api"
 import type { Id } from "./_generated/dataModel"
 import { action, internalMutation, internalQuery, mutation, query } from "./_generated/server"
 import { aggregrateThreadsByFolder } from "./aggregates"
+import { generateThreadName } from "./chat_http/generate_thread_name"
+import { dbMessagesToCore } from "./lib/db_to_core_messages"
 import { getUserIdentity } from "./lib/identity"
 import type { Thread } from "./schema"
 import { HTTPAIMessage, type Message } from "./schema/message"
@@ -743,5 +745,64 @@ export const getUserThreadsPaginatedByProject = query({
             )
             .order("desc")
             .paginate(paginationOpts)
+    }
+})
+
+// Manual thread title generation action
+export const generateThreadTitleManually = action({
+    args: { threadId: v.id("threads") },
+    handler: async (
+        ctx,
+        { threadId }
+    ): Promise<{ success: true; title: string } | { error: string }> => {
+        const user = await getUserIdentity(ctx.auth, {
+            allowAnons: false
+        })
+
+        if ("error" in user) return { error: String(user.error) || "Unauthorized" }
+
+        // Get the thread and verify ownership
+        const thread = await ctx.runQuery(internal.threads.getThreadById, { threadId })
+        if (!thread || thread.authorId !== user.id) {
+            return { error: "Unauthorized" }
+        }
+
+        // Get thread messages
+        const dbMessages: Infer<typeof Message>[] = await ctx.runQuery(
+            internal.messages.getMessagesByThreadId,
+            { threadId }
+        )
+
+        if (dbMessages.length === 0) {
+            return { error: "No messages found in thread" }
+        }
+
+        // Get user settings
+        const settings = await ctx.runQuery(internal.settings.getUserSettingsInternal, {
+            userId: user.id
+        })
+
+        try {
+            // Convert database messages to core messages format
+            const coreMessages = await dbMessagesToCore(dbMessages, [])
+
+            // Generate new title using existing function
+            const result: string | ChatError = await generateThreadName(
+                ctx,
+                threadId,
+                coreMessages,
+                user.id,
+                settings
+            )
+
+            if (result instanceof ChatError) {
+                return { error: result.message }
+            }
+
+            return { success: true, title: result }
+        } catch (error) {
+            console.error("Failed to generate thread title:", error)
+            return { error: "Failed to generate title" }
+        }
     }
 })

@@ -75,7 +75,8 @@ function ThreadsGroup({
     icon,
     onOpenRenameDialog,
     onOpenMoveDialog,
-    onOpenDeleteDialog
+    onOpenDeleteDialog,
+    onOpenGenerateTitleDialog
 }: {
     title: string
     threads: Thread[]
@@ -83,6 +84,7 @@ function ThreadsGroup({
     onOpenRenameDialog?: (thread: Thread) => void
     onOpenMoveDialog?: (thread: Thread) => void
     onOpenDeleteDialog?: (thread: Thread) => void
+    onOpenGenerateTitleDialog?: (thread: Thread) => void
 }) {
     if (threads.length === 0) return null
 
@@ -101,6 +103,7 @@ function ThreadsGroup({
                             onOpenRenameDialog={onOpenRenameDialog}
                             onOpenMoveDialog={onOpenMoveDialog}
                             onOpenDeleteDialog={onOpenDeleteDialog}
+                            onOpenGenerateTitleDialog={onOpenGenerateTitleDialog}
                         />
                     ))}
                 </SidebarMenu>
@@ -131,6 +134,7 @@ export function ThreadsSidebar() {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false)
     const [showRenameDialog, setShowRenameDialog] = useState(false)
     const [showMoveDialog, setShowMoveDialog] = useState(false)
+    const [showGenerateTitleDialog, setShowGenerateTitleDialog] = useState(false)
     const [currentThread, setCurrentThread] = useState<Thread | null>(null)
 
     const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -205,11 +209,21 @@ export function ThreadsSidebar() {
         setShowDeleteDialog(true)
     })
 
+    const handleOpenGenerateTitleDialog = useFunction((thread: Thread) => {
+        setCurrentThread(thread)
+        setShowGenerateTitleDialog(true)
+    })
+
     const handleCloseRenameDialog = useFunction(() => {
         setShowRenameDialog(false)
         // Keep currentThread until animation completes
         setTimeout(() => {
-            if (!showRenameDialog && !showMoveDialog && !showDeleteDialog) {
+            if (
+                !showRenameDialog &&
+                !showMoveDialog &&
+                !showDeleteDialog &&
+                !showGenerateTitleDialog
+            ) {
                 setCurrentThread(null)
             }
         }, 150)
@@ -218,7 +232,12 @@ export function ThreadsSidebar() {
     const handleCloseMoveDialog = useFunction(() => {
         setShowMoveDialog(false)
         setTimeout(() => {
-            if (!showRenameDialog && !showMoveDialog && !showDeleteDialog) {
+            if (
+                !showRenameDialog &&
+                !showMoveDialog &&
+                !showDeleteDialog &&
+                !showGenerateTitleDialog
+            ) {
                 setCurrentThread(null)
             }
         }, 150)
@@ -227,7 +246,26 @@ export function ThreadsSidebar() {
     const handleCloseDeleteDialog = useFunction(() => {
         setShowDeleteDialog(false)
         setTimeout(() => {
-            if (!showRenameDialog && !showMoveDialog && !showDeleteDialog) {
+            if (
+                !showRenameDialog &&
+                !showMoveDialog &&
+                !showDeleteDialog &&
+                !showGenerateTitleDialog
+            ) {
+                setCurrentThread(null)
+            }
+        }, 150)
+    })
+
+    const handleCloseGenerateTitleDialog = useFunction(() => {
+        setShowGenerateTitleDialog(false)
+        setTimeout(() => {
+            if (
+                !showRenameDialog &&
+                !showMoveDialog &&
+                !showDeleteDialog &&
+                !showGenerateTitleDialog
+            ) {
                 setCurrentThread(null)
             }
         }, 150)
@@ -338,6 +376,7 @@ export function ThreadsSidebar() {
                             onOpenRenameDialog={handleOpenRenameDialog}
                             onOpenMoveDialog={handleOpenMoveDialog}
                             onOpenDeleteDialog={handleOpenDeleteDialog}
+                            onOpenGenerateTitleDialog={handleOpenGenerateTitleDialog}
                         />
                         <ThreadsGroup
                             title="Today"
@@ -345,6 +384,7 @@ export function ThreadsSidebar() {
                             onOpenRenameDialog={handleOpenRenameDialog}
                             onOpenMoveDialog={handleOpenMoveDialog}
                             onOpenDeleteDialog={handleOpenDeleteDialog}
+                            onOpenGenerateTitleDialog={handleOpenGenerateTitleDialog}
                         />
                         <ThreadsGroup
                             title="Yesterday"
@@ -352,6 +392,7 @@ export function ThreadsSidebar() {
                             onOpenRenameDialog={handleOpenRenameDialog}
                             onOpenMoveDialog={handleOpenMoveDialog}
                             onOpenDeleteDialog={handleOpenDeleteDialog}
+                            onOpenGenerateTitleDialog={handleOpenGenerateTitleDialog}
                         />
                         <ThreadsGroup
                             title="Last 7 Days"
@@ -359,6 +400,7 @@ export function ThreadsSidebar() {
                             onOpenRenameDialog={handleOpenRenameDialog}
                             onOpenMoveDialog={handleOpenMoveDialog}
                             onOpenDeleteDialog={handleOpenDeleteDialog}
+                            onOpenGenerateTitleDialog={handleOpenGenerateTitleDialog}
                         />
                         <ThreadsGroup
                             title="Last 30 Days"
@@ -366,6 +408,7 @@ export function ThreadsSidebar() {
                             onOpenRenameDialog={handleOpenRenameDialog}
                             onOpenMoveDialog={handleOpenMoveDialog}
                             onOpenDeleteDialog={handleOpenDeleteDialog}
+                            onOpenGenerateTitleDialog={handleOpenGenerateTitleDialog}
                         />
                     </>
                 )}
@@ -459,9 +502,11 @@ export function ThreadsSidebar() {
                     showDeleteDialog={showDeleteDialog}
                     showRenameDialog={showRenameDialog}
                     showMoveDialog={showMoveDialog}
+                    showGenerateTitleDialog={showGenerateTitleDialog}
                     onCloseDeleteDialog={handleCloseDeleteDialog}
                     onCloseRenameDialog={handleCloseRenameDialog}
                     onCloseMoveDialog={handleCloseMoveDialog}
+                    onCloseGenerateTitleDialog={handleCloseGenerateTitleDialog}
                     currentThread={currentThread}
                     projects={"error" in projects ? [] : projects}
                 />

@@ -48,7 +48,7 @@ export const generateThreadName = async (
     userId: string,
     settings: Infer<typeof UserSettings>
 ) => {
-    const relevant_messages = messages.filter((message) => message.role !== "system").slice(0, 5)
+    const relevant_messages = messages.filter((message) => message.role !== "system").slice(0, 2)
 
     const modelData = await getModel(ctx, settings.titleGenerationModel)
     if (modelData instanceof ChatError) return modelData
@@ -85,7 +85,7 @@ Generate a title that accurately represents what this conversation is about base
             },
             {
                 role: "user",
-                content: `Here are the first 5 messages of the conversation:
+                content: `Here are the first few messages of the conversation:
 
 ${relevant_messages.map((message) => `${message.role}: ${contentToText(message.content)}`).join("\n")}
 

@@ -55,6 +55,14 @@ export const MODELS_SHARED: SharedModel[] = [
         customIcon: "deepseek"
     },
     {
+        id: "gemini-2.5-flash",
+        name: "Gemini 2.5 Flash",
+        shortName: "2.5 Flash",
+        adapters: ["google:gemini-2.5-flash"],
+        abilities: ["vision", "function_calling", "reasoning", "pdf", "effort_control"],
+        supportsDisablingReasoning: true
+    },
+    {
         id: "gpt-4o",
         name: "GPT 4o",
         shortName: "4o",
@@ -113,18 +121,6 @@ export const MODELS_SHARED: SharedModel[] = [
         supportsDisablingReasoning: true
     },
     {
-        id: "gemini-2.5-flash",
-        name: "Gemini 2.5 Flash",
-        shortName: "2.5 Flash",
-        adapters: [
-            "i3-google:gemini-2.5-flash",
-            "google:gemini-2.5-flash",
-            "openrouter:google/gemini-2.5-flash"
-        ],
-        abilities: ["vision", "function_calling", "reasoning", "pdf", "effort_control"],
-        supportsDisablingReasoning: true
-    },
-    {
         id: "gemini-2.5-flash-lite",
         name: "Gemini 2.5 Flash Lite",
         shortName: "2.5 Flash Lite",
@@ -142,13 +138,6 @@ export const MODELS_SHARED: SharedModel[] = [
         shortName: "2.0 Flash Imagen",
         adapters: ["i3-google:gemini-2.0-flash-exp", "google:gemini-2.0-flash-exp"],
         abilities: ["vision"]
-    },
-    {
-        id: "gemma-3-27b-it",
-        name: "Gemma 3 27B",
-        shortName: "Gemma 3",
-        adapters: ["google:gemma-3-27b-it"],
-        abilities: ["vision", "function_calling", "pdf"]
     },
     // {
     //     id: "gemini-2.5-pro",

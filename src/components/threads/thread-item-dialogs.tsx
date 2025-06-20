@@ -24,8 +24,8 @@ import type { Id } from "@/convex/_generated/dataModel"
 import { getProjectColorClasses } from "@/lib/project-constants"
 import { cn } from "@/lib/utils"
 import { useNavigate, useParams } from "@tanstack/react-router"
-import { useMutation } from "convex/react"
-import { FolderOpen, Loader2 } from "lucide-react"
+import { useAction, useMutation } from "convex/react"
+import { BotMessageSquare, FolderOpen, Loader2 } from "lucide-react"
 import { memo, useEffect, useState } from "react"
 import { toast } from "sonner"
 import type { Thread } from "./types"
@@ -42,11 +42,13 @@ interface ThreadItemDialogsProps {
     showDeleteDialog: boolean
     showRenameDialog: boolean
     showMoveDialog: boolean
+    showGenerateTitleDialog: boolean
 
     // Dialog control
     onCloseDeleteDialog: () => void
     onCloseRenameDialog: () => void
     onCloseMoveDialog: () => void
+    onCloseGenerateTitleDialog: () => void
 
     // Current thread
     currentThread: Thread | null
@@ -60,20 +62,24 @@ export const ThreadItemDialogs = memo(
         showDeleteDialog,
         showRenameDialog,
         showMoveDialog,
+        showGenerateTitleDialog,
         onCloseDeleteDialog,
         onCloseRenameDialog,
         onCloseMoveDialog,
+        onCloseGenerateTitleDialog,
         currentThread,
         projects
     }: ThreadItemDialogsProps) => {
         const [renameValue, setRenameValue] = useState("")
         const [isRenaming, setIsRenaming] = useState(false)
         const [isMoving, setIsMoving] = useState(false)
+        const [isGeneratingTitle, setIsGeneratingTitle] = useState(false)
         const [selectedProjectId, setSelectedProjectId] = useState<string>("no-folder")
 
         const deleteThreadMutation = useMutation(api.threads.deleteThread)
         const renameThreadMutation = useMutation(api.threads.renameThread)
         const moveThreadMutation = useMutation(api.folders.moveThreadToProject)
+        const generateTitleAction = useAction(api.threads.generateThreadTitleManually)
 
         const params = useParams({ strict: false }) as { threadId?: string }
         const navigate = useNavigate()
@@ -91,6 +97,12 @@ export const ThreadItemDialogs = memo(
                 setIsMoving(false)
             }
         }, [showMoveDialog])
+
+        useEffect(() => {
+            if (!showGenerateTitleDialog) {
+                setIsGeneratingTitle(false)
+            }
+        }, [showGenerateTitleDialog])
 
         // Initialize rename value when dialog opens
         useEffect(() => {
@@ -200,8 +212,74 @@ export const ThreadItemDialogs = memo(
             }
         }
 
+        const handleGenerateTitle = async () => {
+            if (!currentThread) return
+
+            setIsGeneratingTitle(true)
+            try {
+                const result = await generateTitleAction({
+                    threadId: currentThread._id
+                })
+
+                if (result && "error" in result) {
+                    toast.error(
+                        typeof result.error === "string" ? result.error : "Failed to generate title"
+                    )
+                } else if (result && "success" in result) {
+                    toast.success("Title generated successfully")
+                    onCloseGenerateTitleDialog()
+                }
+            } catch (error) {
+                console.error("Failed to generate title:", error)
+                toast.error("Failed to generate title")
+            } finally {
+                setIsGeneratingTitle(false)
+            }
+        }
+
         return (
             <>
+                {/* Generate Title Dialog */}
+                <AlertDialog
+                    open={showGenerateTitleDialog}
+                    onOpenChange={(open) => {
+                        if (!isGeneratingTitle && !open) {
+                            onCloseGenerateTitleDialog()
+                        }
+                    }}
+                >
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle className="flex items-center gap-2">
+                                <BotMessageSquare className="h-5 w-5" />
+                                Generate Title
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                                Generate a new title for the current conversation?
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel disabled={isGeneratingTitle}>
+                                Cancel
+                            </AlertDialogCancel>
+                            <AlertDialogAction
+                                onClick={handleGenerateTitle}
+                                disabled={isGeneratingTitle}
+                                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                            >
+                                {isGeneratingTitle ? (
+                                    <>
+                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                        Generating...
+                                    </>
+                                ) : (
+                                    "Generate Title"
+                                )}
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+
                 {/* Rename Dialog */}
                 <Dialog
                     open={showRenameDialog}

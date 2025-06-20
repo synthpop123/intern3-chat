@@ -11,7 +11,7 @@ import { Link } from "@tanstack/react-router"
 import { useParams } from "@tanstack/react-router"
 import { useMutation } from "convex/react"
 import equal from "fast-deep-equal/es6"
-import { Edit3, FolderOpen, MoreHorizontal, Pin, Trash2 } from "lucide-react"
+import { BotMessageSquare, Edit3, FolderOpen, MoreHorizontal, Pin, Trash2 } from "lucide-react"
 import { memo, useState } from "react"
 import { toast } from "sonner"
 import type { Thread } from "./types"
@@ -22,6 +22,7 @@ interface ThreadItemProps {
     onOpenRenameDialog?: (thread: Thread) => void
     onOpenMoveDialog?: (thread: Thread) => void
     onOpenDeleteDialog?: (thread: Thread) => void
+    onOpenGenerateTitleDialog?: (thread: Thread) => void
 }
 
 export const ThreadItem = memo(
@@ -30,7 +31,8 @@ export const ThreadItem = memo(
         isInFolder = false,
         onOpenRenameDialog,
         onOpenMoveDialog,
-        onOpenDeleteDialog
+        onOpenDeleteDialog,
+        onOpenGenerateTitleDialog
     }: ThreadItemProps) => {
         const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -46,6 +48,10 @@ export const ThreadItem = memo(
                 console.error("Failed to toggle pin:", error)
                 toast.error(`Failed to ${pinned ? "unpin" : "pin"} thread`)
             }
+        }
+
+        const handleGenerateTitle = () => {
+            onOpenGenerateTitleDialog?.(thread)
         }
 
         const handleRename = () => {
@@ -93,9 +99,13 @@ export const ThreadItem = memo(
                                     </button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
+                                    <DropdownMenuItem onClick={handleGenerateTitle}>
+                                        <BotMessageSquare className="h-4 w-4" />
+                                        Generate Title
+                                    </DropdownMenuItem>
                                     <DropdownMenuItem onClick={handleRename}>
                                         <Edit3 className="h-4 w-4" />
-                                        Rename
+                                        Rename Title
                                     </DropdownMenuItem>
                                     <DropdownMenuItem onClick={handleTogglePin}>
                                         <Pin className="h-4 w-4" />
