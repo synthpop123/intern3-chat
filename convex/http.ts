@@ -9,9 +9,7 @@ const http = httpRouter()
 const cors = corsRouter(http, {
     allowedOrigins: [
         "http://localhost:3000",
-        "https://intern3.vercel.app",
-        "https://intern3.chat",
-        "https://www.intern3.chat"
+        "https://chat.lkwplus.com",
     ],
     allowedHeaders: ["Content-Type", "Authorization"],
     allowCredentials: true
