@@ -48,7 +48,7 @@ export const generateThreadName = async (
     userId: string,
     settings: Infer<typeof UserSettings>
 ) => {
-    const relevant_messages = messages.filter((message) => message.role !== "system").slice(0, 2)
+    const relevant_messages = messages.filter((message) => message.role !== "system").slice(0, 5)
 
     const modelData = await getModel(ctx, settings.titleGenerationModel)
     if (modelData instanceof ChatError) return modelData

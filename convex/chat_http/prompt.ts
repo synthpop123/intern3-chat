@@ -28,7 +28,7 @@ export const buildPrompt = (
 You have access to the "Canvas" tool for visualizing content. Two formats are supported:
 1. \`mermaid\`
 - PURPOSE: Create diagrams, flowcharts, complex system designs, mindmaps, and visual representations
-- USE WHEN: Explaining complex concepts or upon user request
+- USE WHEN: Explaining COMPLEX concepts or upon user request. DO NOT use this tool for simple concepts.
 - CRITICAL RULES for correct \`mermaid\` rendering:
   - ALWAYS wrap node strings in double quotes e.g. \`A[Start] --> B[Hello World]\` -> \`A["Start"] --> B["Hello World"]\`
   - ESCAPE special characters in node strings e.g. \`A["Start"] --> B["Insert "cat""]\` -> \`A["Start"] --> B["Insert &quot;cat&quot;"]\`
@@ -36,7 +36,6 @@ You have access to the "Canvas" tool for visualizing content. Two formats are su
 - EXAMPLES: Flowcharts, sequence diagrams, entity relationships, state diagrams
 
 2. \`html\` / \`react\`
-
 - PURPOSE: Render interactive web content and React components
 - EXAMPLES:
   - Interactive UI components

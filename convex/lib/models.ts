@@ -135,11 +135,7 @@ export const MODELS_SHARED: SharedModel[] = [
         id: "gemini-2.0-flash",
         name: "Gemini 2.0 Flash",
         shortName: "2.0 Flash",
-        adapters: [
-            "i3-google:gemini-2.0-flash",
-            "google:gemini-2.0-flash",
-            "openrouter:google/gemini-2.0-flash-001"
-        ],
+        adapters: ["i3-google:gemini-2.0-flash", "google:gemini-2.0-flash"],
         abilities: ["vision", "function_calling", "pdf"]
     },
     {

@@ -40,7 +40,9 @@ export const getModel = async (ctx: ActionCtx, modelId: string) => {
 
     for (const adapter of sortedAdapters) {
         const providerIdRaw = model.customProviderId ?? adapter.split(":")[0]
-        const providerSpecificModelId = model.customProviderId ? model.id : adapter.split(":")[1]
+        const providerSpecificModelId = model.customProviderId
+            ? model.id
+            : adapter.split(":").slice(1).join(":")
         if (providerIdRaw.startsWith("i3-")) {
             const providerId = providerIdRaw.slice(3) as CoreProvider
             const sdk_provider = createProvider(providerId, "internal")
