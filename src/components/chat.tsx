@@ -138,8 +138,8 @@ const ChatContent = ({ threadId: routeThreadId, folderId }: ChatProps) => {
                         >
                             <h1 className="px-4 font-medium text-3xl text-foreground">
                                 {userName
-                                    ? `What do you want to explore, ${userName?.split(" ")[0]}?`
-                                    : "What do you want to explore?"}
+                                    ? `How can I help you, ${userName?.split(" ")[0]}?`
+                                    : "How can I help you?"}
                             </h1>
                         </motion.div>
 

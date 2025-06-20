@@ -24,7 +24,7 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
-import { GithubIcon, GoogleIcon, TwitchIcon } from "../brand-icons"
+import { GithubIcon, GoogleIcon } from "../brand-icons"
 
 const emailSchema = z.object({
     email: z.string().email({
@@ -151,7 +151,7 @@ export function AuthCard() {
     })
 
     const socialSignInMutation = useMutation({
-        mutationFn: async (provider: "google" | "github" | "twitch") => {
+        mutationFn: async (provider: "google" | "github") => {
             return await authClient.signIn.social({
                 provider
             })
@@ -265,21 +265,6 @@ export function AuthCard() {
                                                 )}
                                                 Continue with GitHub
                                             </Button>
-                                            <Button
-                                                variant="outline"
-                                                className="h-10 w-full gap-2"
-                                                onClick={() =>
-                                                    socialSignInMutation.mutate("twitch")
-                                                }
-                                                disabled={socialSignInMutation.isPending}
-                                            >
-                                                {socialSignInMutation.isPending ? (
-                                                    <Loader2 className="size-4 shrink-0 animate-spin" />
-                                                ) : (
-                                                    <TwitchIcon className="size-5 shrink-0" />
-                                                )}
-                                                Continue with Twitch
-                                            </Button>
                                         </motion.div>
 
                                         <motion.div
@@ -313,7 +298,7 @@ export function AuthCard() {
                                                                 <FormControl>
                                                                     <Input
                                                                         type="email"
-                                                                        placeholder="hello@t3.gg"
+                                                                        placeholder="name@example.org"
                                                                         {...field}
                                                                     />
                                                                 </FormControl>

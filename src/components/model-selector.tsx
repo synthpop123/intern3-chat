@@ -1,4 +1,10 @@
-import { ClaudeIcon, GeminiIcon, MetaIcon, OpenAIIcon } from "@/components/brand-icons"
+import {
+    ClaudeIcon,
+    DeepSeekIcon,
+    GeminiIcon,
+    MetaIcon,
+    OpenAIIcon
+} from "@/components/brand-icons"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -57,6 +63,8 @@ export const getProviderIcon = (model: DisplayModel, isCustom: boolean) => {
                 return <StabilityIcon className="size-4" />
             case "meta":
                 return <MetaIcon className="size-4" />
+            case "deepseek":
+                return <DeepSeekIcon className="size-4" />
             default:
                 return <Badge className="text-xs">Built-in</Badge>
         }
@@ -284,7 +292,11 @@ export function ModelSelector({
                                                   ? "Google"
                                                   : providerKey === "fal"
                                                     ? "Fal.AI"
-                                                    : providerKey
+                                                    : providerKey === "groq"
+                                                      ? "Groq"
+                                                      : providerKey === "openrouter"
+                                                        ? "OpenRouter"
+                                                        : providerKey
                                     }
                                 >
                                     {providerModels.map((model) => (

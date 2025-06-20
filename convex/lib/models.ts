@@ -33,11 +33,27 @@ export type SharedModel<Abilities extends ModelAbility[] = ModelAbility[]> = {
     contextLength?: number
     maxTokens?: number
     supportedImageSizes?: ImageSize[]
-    customIcon?: "stability-ai" | "openai" | "bflabs" | "google" | "meta"
+    customIcon?: "stability-ai" | "openai" | "bflabs" | "google" | "meta" | "deepseek"
     supportsDisablingReasoning?: boolean
 }
 
 export const MODELS_SHARED: SharedModel[] = [
+    {
+        id: "deepseek-v3",
+        name: "DeepSeek V3",
+        shortName: "V3",
+        adapters: ["openrouter:deepseek/deepseek-chat-v3-0324:free"],
+        abilities: ["function_calling"],
+        customIcon: "deepseek"
+    },
+    {
+        id: "deepseek-r1",
+        name: "DeepSeek R1",
+        shortName: "R1",
+        adapters: ["openrouter:deepseek/deepseek-r1:free"],
+        abilities: ["reasoning", "function_calling"],
+        customIcon: "deepseek"
+    },
     {
         id: "gpt-4o",
         name: "GPT 4o",
@@ -49,32 +65,8 @@ export const MODELS_SHARED: SharedModel[] = [
         id: "gpt-4o-mini",
         name: "GPT 4o mini",
         shortName: "4o mini",
-        adapters: ["i3-openai:gpt-4o-mini", "openai:gpt-4o-mini", "openrouter:openai/gpt-4o-mini"],
+        adapters: ["i3-openai:gpt-4o-mini", "openai:gpt-4o-mini"],
         abilities: ["vision", "function_calling", "pdf"]
-    },
-    {
-        id: "o3-mini",
-        name: "o3 mini",
-        adapters: ["openai:o3-mini", "openrouter:openai/o3-mini"],
-        abilities: ["reasoning", "function_calling", "effort_control"]
-    },
-    {
-        id: "o4-mini",
-        name: "o4 mini",
-        adapters: ["openai:o4-mini", "openrouter:openai/o4-mini"],
-        abilities: ["reasoning", "vision", "function_calling", "pdf", "effort_control"]
-    },
-    {
-        id: "o3",
-        name: "o3",
-        adapters: ["openai:o3", "openrouter:openai/o3"],
-        abilities: ["reasoning", "vision", "function_calling", "pdf", "effort_control"]
-    },
-    {
-        id: "o3-pro",
-        name: "o3 pro",
-        adapters: ["openai:o3-pro", "openrouter:openai/o3-pro"],
-        abilities: ["reasoning", "vision", "function_calling", "pdf", "effort_control"]
     },
     {
         id: "gpt-4.1",
@@ -86,22 +78,14 @@ export const MODELS_SHARED: SharedModel[] = [
         id: "gpt-4.1-mini",
         name: "GPT 4.1 mini",
         shortName: "4.1 mini",
-        adapters: [
-            "i3-openai:gpt-4.1-mini",
-            "openai:gpt-4.1-mini",
-            "openrouter:openai/gpt-4.1-mini"
-        ],
+        adapters: ["i3-openai:gpt-4.1-mini", "openai:gpt-4.1-mini"],
         abilities: ["vision", "function_calling", "pdf"]
     },
     {
         id: "gpt-4.1-nano",
         name: "GPT 4.1 nano",
         shortName: "4.1 nano",
-        adapters: [
-            "i3-openai:gpt-4.1-nano",
-            "openai:gpt-4.1-nano",
-            "openrouter:openai/gpt-4.1-nano"
-        ],
+        adapters: ["i3-openai:gpt-4.1-nano", "openai:gpt-4.1-nano"],
         abilities: ["vision", "function_calling", "pdf"]
     },
     {
@@ -129,31 +113,6 @@ export const MODELS_SHARED: SharedModel[] = [
         supportsDisablingReasoning: true
     },
     {
-        id: "claude-3-5-sonnet",
-        name: "Claude Sonnet 3.5",
-        shortName: "Sonnet 3.5",
-        adapters: ["anthropic:claude-3-5-sonnet", "openrouter:anthropic/claude-3.5-sonnet"],
-        abilities: ["vision", "function_calling", "pdf"]
-    },
-    {
-        id: "gemini-2.0-flash-lite",
-        name: "Gemini 2.0 Flash Lite",
-        shortName: "2.0 Flash Lite",
-        adapters: [
-            "i3-google:gemini-2.0-flash-lite",
-            "google:gemini-2.0-flash-lite",
-            "openrouter:google/gemini-2.0-flash-lite-001"
-        ],
-        abilities: ["vision", "function_calling", "pdf"]
-    },
-    {
-        id: "gemini-2.0-flash-image-generation",
-        name: "Gemini 2.0 Flash Imagen",
-        shortName: "2.0 Flash Imagen",
-        adapters: ["i3-google:gemini-2.0-flash-exp", "google:gemini-2.0-flash-exp"],
-        abilities: ["vision"]
-    },
-    {
         id: "gemini-2.5-flash",
         name: "Gemini 2.5 Flash",
         shortName: "2.5 Flash",
@@ -178,38 +137,33 @@ export const MODELS_SHARED: SharedModel[] = [
         supportsDisablingReasoning: true
     },
     {
-        id: "gemini-2.0-flash",
-        name: "Gemini 2.0 Flash",
-        shortName: "2.0 Flash",
-        adapters: [
-            "i3-google:gemini-2.0-flash",
-            "google:gemini-2.0-flash",
-            "openrouter:google/gemini-2.0-flash-001"
-        ],
+        id: "gemini-2.0-flash-image-generation",
+        name: "Gemini 2.0 Flash Imagen",
+        shortName: "2.0 Flash Imagen",
+        adapters: ["i3-google:gemini-2.0-flash-preview", "google:gemini-2.0-flash-preview"],
+        abilities: ["vision"]
+    },
+    {
+        id: "gemma-3-27b-it",
+        name: "Gemma 3 27B",
+        shortName: "Gemma 3",
+        adapters: ["google:gemma-3-27b-it"],
         abilities: ["vision", "function_calling", "pdf"]
     },
-    {
-        id: "gemini-2.5-pro",
-        name: "Gemini 2.5 Pro",
-        shortName: "2.5 Pro",
-        adapters: ["google:gemini-2.5-pro", "openrouter:google/gemini-2.5-pro"],
-        abilities: ["reasoning", "vision", "function_calling", "pdf", "effort_control"],
-        supportsDisablingReasoning: true
-    },
+    // {
+    //     id: "gemini-2.5-pro",
+    //     name: "Gemini 2.5 Pro",
+    //     shortName: "2.5 Pro",
+    //     adapters: ["google:gemini-2.5-pro", "openrouter:google/gemini-2.5-pro"],
+    //     abilities: ["reasoning", "vision", "function_calling", "pdf", "effort_control"],
+    //     supportsDisablingReasoning: true
+    // },
     // Image Generation Models
-    {
-        id: "gpt-image-1",
-        name: "GPT Image 1",
-        adapters: ["openai:gpt-image-1"],
-        abilities: [],
-        mode: "image",
-        supportedImageSizes: ["1024x1024", "1536x1024", "1024x1536"]
-    },
     {
         id: "sdxl-lightning",
         name: "SDXL Lightning",
         shortName: "SDXL",
-        adapters: ["i3-fal:fal-ai/fast-lightning-sdxl", "fal:fal-ai/fast-lightning-sdxl"],
+        adapters: ["fal:fal-ai/fast-lightning-sdxl"],
         abilities: [],
         mode: "image",
         customIcon: "stability-ai",
@@ -219,7 +173,7 @@ export const MODELS_SHARED: SharedModel[] = [
         id: "flux-schnell",
         name: "FLUX.1 [schnell]",
         shortName: "flux.schnell",
-        adapters: ["i3-fal:fal-ai/flux/schnell", "fal:fal-ai/flux/schnell"],
+        adapters: ["fal:fal-ai/flux/schnell"],
         abilities: [],
         mode: "image",
         customIcon: "bflabs",
@@ -236,26 +190,6 @@ export const MODELS_SHARED: SharedModel[] = [
         supportedImageSizes: ["1:1", "1:1-hd", "3:4", "4:3", "9:16", "16:9"]
     },
     {
-        id: "google-imagen-3-fast",
-        name: "Google Imagen 3 (Fast)",
-        shortName: "Imagen 3 (Fast)",
-        adapters: ["fal:fal-ai/imagen3/fast"],
-        abilities: [],
-        mode: "image",
-        customIcon: "google",
-        supportedImageSizes: ["1:1-hd", "16:9-hd", "9:16-hd", "3:4-hd", "4:3-hd"]
-    },
-    {
-        id: "google-imagen-3",
-        name: "Google Imagen 3",
-        shortName: "Imagen 3",
-        adapters: ["fal:fal-ai/imagen3"],
-        abilities: [],
-        mode: "image",
-        customIcon: "google",
-        supportedImageSizes: ["1:1-hd", "16:9-hd", "9:16-hd", "3:4-hd", "4:3-hd"]
-    },
-    {
         id: "google-imagen-4",
         name: "Google Imagen 4",
         shortName: "Imagen 4",
@@ -269,10 +203,7 @@ export const MODELS_SHARED: SharedModel[] = [
         id: "llama-4-scout-17b-16e-instruct",
         name: "Llama 4 Scout 17B 16E",
         shortName: "Llama 4 Scout 17B",
-        adapters: [
-            "i3-groq:meta-llama/llama-4-scout-17b-16e-instruct",
-            "groq:meta-llama/llama-4-scout-17b-16e-instruct"
-        ],
+        adapters: ["groq:meta-llama/llama-4-scout-17b-16e-instruct"],
         abilities: ["vision"],
         customIcon: "meta"
     },

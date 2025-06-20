@@ -9,9 +9,7 @@ import { sendOTPEmail } from "./email"
 
 export const auth = betterAuth({
     trustedOrigins: [
-        "*.intern3.chat",
         process.env.VERCEL_URL!,
-        "https://intern3.chat",
         "http://localhost:3000",
         "https://localhost:3000"
     ].filter(Boolean),
@@ -30,10 +28,6 @@ export const auth = betterAuth({
         github: {
             clientId: process.env.GITHUB_CLIENT_ID || "",
             clientSecret: process.env.GITHUB_CLIENT_SECRET || ""
-        },
-        twitch: {
-            clientId: process.env.TWITCH_CLIENT_ID as string,
-            clientSecret: process.env.TWITCH_CLIENT_SECRET as string
         }
     },
     plugins: [
