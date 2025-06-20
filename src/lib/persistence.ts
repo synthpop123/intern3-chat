@@ -2,12 +2,12 @@ import { ABILITIES } from "@/convex/lib/toolkit"
 import { z } from "zod"
 
 const AIConfigSchema = z.object({
-    selectedModel: z.string().nullable(),
+    selectedModel: z.string().nullable().default("gemini-2.5-flash"),
     enabledTools: z
         .array(z.enum(ABILITIES as readonly ["web_search", "supermemory", "mcp"]))
         .default(["web_search"]),
     selectedImageSize: z.string().optional().default("1:1"),
-    reasoningEffort: z.enum(["off", "low", "medium", "high"]).default("medium")
+    reasoningEffort: z.enum(["off", "low", "medium", "high"]).default("high")
 })
 
 export type AIConfig = z.infer<typeof AIConfigSchema>

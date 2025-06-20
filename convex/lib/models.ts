@@ -106,8 +106,8 @@ export const MODELS_SHARED: SharedModel[] = [
     },
     {
         id: "claude-3-7-sonnet",
-        name: "Claude Sonnet 3.7",
-        shortName: "Sonnet 3.7",
+        name: "Claude 3.7 Sonnet",
+        shortName: "3.7 Sonnet",
         adapters: ["anthropic:claude-3-7-sonnet", "openrouter:anthropic/claude-3.7-sonnet"],
         abilities: ["reasoning", "vision", "function_calling", "pdf", "effort_control"],
         supportsDisablingReasoning: true
