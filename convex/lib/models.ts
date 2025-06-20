@@ -126,11 +126,28 @@ export const MODELS_SHARED: SharedModel[] = [
         shortName: "2.5 Flash Lite",
         adapters: [
             "i3-google:gemini-2.5-flash-lite-preview-06-17",
-            "google:gemini-2.5-flash-lite-preview-06-17",
-            "openrouter:google/gemini-2.5-flash-lite-preview-06-17"
+            "google:gemini-2.5-flash-lite-preview-06-17"
         ],
         abilities: ["vision", "function_calling", "reasoning", "pdf", "effort_control"],
         supportsDisablingReasoning: true
+    },
+    {
+        id: "gemini-2.0-flash",
+        name: "Gemini 2.0 Flash",
+        shortName: "2.0 Flash",
+        adapters: [
+            "i3-google:gemini-2.0-flash",
+            "google:gemini-2.0-flash",
+            "openrouter:google/gemini-2.0-flash-001"
+        ],
+        abilities: ["vision", "function_calling", "pdf"]
+    },
+    {
+        id: "gemini-2.0-flash-lite",
+        name: "Gemini 2.0 Flash Lite",
+        shortName: "2.0 Flash Lite",
+        adapters: ["i3-google:gemini-2.0-flash-lite", "google:gemini-2.0-flash-lite"],
+        abilities: ["vision", "function_calling", "pdf"]
     },
     {
         id: "gemini-2.0-flash-image-generation",

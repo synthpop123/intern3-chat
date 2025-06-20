@@ -99,6 +99,10 @@ export const ThreadItem = memo(
                                     </button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
+                                    <DropdownMenuItem onClick={handleTogglePin}>
+                                        <Pin className="h-4 w-4" />
+                                        {thread.pinned ? "Unpin" : "Pin"}
+                                    </DropdownMenuItem>
                                     <DropdownMenuItem onClick={handleGenerateTitle}>
                                         <BotMessageSquare className="h-4 w-4" />
                                         Generate Title
@@ -106,10 +110,6 @@ export const ThreadItem = memo(
                                     <DropdownMenuItem onClick={handleRename}>
                                         <Edit3 className="h-4 w-4" />
                                         Rename Title
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={handleTogglePin}>
-                                        <Pin className="h-4 w-4" />
-                                        {thread.pinned ? "Unpin" : "Pin"}
                                     </DropdownMenuItem>
                                     <DropdownMenuItem onClick={handleMove}>
                                         <FolderOpen className="h-4 w-4" />
