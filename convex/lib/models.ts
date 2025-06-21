@@ -87,13 +87,13 @@ export const MODELS_SHARED: SharedModel[] = [
         id: "o1",
         name: "o1",
         adapters: ["openai:o1"],
-        abilities: ["vision", "reasoning", "function_calling", "effort_control"]
+        abilities: ["vision", "reasoning", "function_calling", "pdf", "effort_control"]
     },
     {
         id: "o3-mini",
         name: "o3 mini",
         adapters: ["openai:o3-mini"],
-        abilities: ["reasoning", "function_calling", "effort_control"]
+        abilities: ["reasoning", "function_calling", "pdf", "effort_control"]
     },
     {
         id: "gpt-4o",
