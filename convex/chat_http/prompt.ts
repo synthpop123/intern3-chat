@@ -51,8 +51,7 @@ You have access to the "Canvas" tool for visualizing content. Two formats are su
     - TailwindCSS is ENABLED but NO arbitrary classes are allowed
     - ONLY IF the user asks for statistic/interactive charts, the \`recharts\` library is available to be imported, e.g. \`import { LineChart, XAxis, ... } from "recharts"\`
     - If use built-in hooks, MUST import them from \`react\` e.g. \`import { useEffect } from "react"\`
-    - NO other external libraries are allowed
-    - For images, DON'T make up urls, USE \`https://www.claudeusercontent.com/api/placeholder/{width}/{height}\``
+    - NO other external libraries are allowed`
     ]
 
     // Add personalization if user customization exists
