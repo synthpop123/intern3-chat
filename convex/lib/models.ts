@@ -33,7 +33,7 @@ export type SharedModel<Abilities extends ModelAbility[] = ModelAbility[]> = {
     contextLength?: number
     maxTokens?: number
     supportedImageSizes?: ImageSize[]
-    customIcon?: "stability-ai" | "openai" | "bflabs" | "google" | "meta" | "deepseek"
+    customIcon?: "stability-ai" | "openai" | "bflabs" | "google" | "meta" | "deepseek" | "qwen"
     supportsDisablingReasoning?: boolean
 }
 
@@ -55,12 +55,45 @@ export const MODELS_SHARED: SharedModel[] = [
         customIcon: "deepseek"
     },
     {
+        id: "qwen3-235b-a22b",
+        name: "Qwen3 235B A22B",
+        adapters: ["openrouter:qwen/qwen3-235b-a22b:free"],
+        abilities: ["reasoning", "function_calling", "pdf"],
+        customIcon: "qwen"
+    },
+    {
+        id: "qwen3-32b",
+        name: "Qwen3 32B",
+        adapters: ["openrouter:qwen/qwen3-32b:free"],
+        abilities: ["reasoning", "function_calling", "pdf"],
+        customIcon: "qwen"
+    },
+    {
+        id: "qwen3-30b-a3b",
+        name: "Qwen3 30B A3B",
+        adapters: ["openrouter:qwen/qwen3-30b-a3b:free"],
+        abilities: ["reasoning", "function_calling", "pdf"],
+        customIcon: "qwen"
+    },
+    {
         id: "gemini-2.5-flash",
         name: "Gemini 2.5 Flash",
         shortName: "2.5 Flash",
         adapters: ["google:gemini-2.5-flash"],
         abilities: ["vision", "function_calling", "reasoning", "pdf", "effort_control"],
         supportsDisablingReasoning: true
+    },
+    {
+        id: "o1",
+        name: "o1",
+        adapters: ["openai:o1"],
+        abilities: ["vision", "reasoning", "function_calling", "effort_control"]
+    },
+    {
+        id: "o3-mini",
+        name: "o3 mini",
+        adapters: ["openai:o3-mini"],
+        abilities: ["reasoning", "function_calling", "effort_control"]
     },
     {
         id: "gpt-4o",
@@ -202,18 +235,18 @@ export const MODELS_SHARED: SharedModel[] = [
         supportedImageSizes: ["1:1-hd", "16:9-hd", "9:16-hd", "3:4-hd", "4:3-hd"]
     },
     {
-        id: "llama-4-scout-17b-16e-instruct",
-        name: "Llama 4 Scout 17B 16E",
-        shortName: "Llama 4 Scout 17B",
-        adapters: ["groq:meta-llama/llama-4-scout-17b-16e-instruct"],
-        abilities: ["vision"],
-        customIcon: "meta"
-    },
-    {
         id: "llama-4-maverick-17b-128e-instruct",
         name: "Llama 4 Maverick 17B 128E Instruct",
         shortName: "Llama 4 Maverick 17B",
         adapters: ["groq:meta-llama/llama-4-maverick-17b-128e-instruct"],
+        abilities: ["vision"],
+        customIcon: "meta"
+    },
+    {
+        id: "llama-4-scout-17b-16e-instruct",
+        name: "Llama 4 Scout 17B 16E",
+        shortName: "Llama 4 Scout 17B",
+        adapters: ["groq:meta-llama/llama-4-scout-17b-16e-instruct"],
         abilities: ["vision"],
         customIcon: "meta"
     },
