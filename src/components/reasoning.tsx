@@ -80,7 +80,7 @@ function ReasoningTrigger({ children, className, ...props }: ReasoningTriggerPro
             onClick={() => onOpenChange(!isOpen)}
             {...props}
         >
-            <Brain className="size-4 text-primary" />
+            <Brain className="size-4" />
             <span className="text-primary">{children}</span>
             <div
                 className={cn(
